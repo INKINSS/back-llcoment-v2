@@ -1,22 +1,17 @@
 import { Schema, model } from "mongoose";
 
 const Article = new Schema({
-  title: {
-    type: String,
-    required: true,
-    trim: true,
-  },
   content: {
     type: String,
     required: true,
     trim: true,
   },
-  tags: {
-    type: [String],
+  tag: {
+    type: String,
     required: true,
     trim: true,
   },
-  author: {
+  nickname: {
     type: String,
     required: true,
     trim: true,

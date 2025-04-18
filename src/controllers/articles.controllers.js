@@ -20,11 +20,11 @@ export const getArticleById = async(req, res) => {
 
 export const createArticle = async(req, res) => {
     try {
-        const { title, content } = req.body
-        if(!title || !content) {
-            return res.status(400).json({ message: 'title and content are required' })
+        const { content, nickname, tag } = req.body
+        if(!content || !tag || !nickname) {
+            return res.status(400).json({ message: 'content, tag and nickname are required' })
         }
-        const article = new Article({ title, content })
+        const article = new Article({ content, nickname, tag })
         await article.save()
         res.status(201).json(article)
     } catch (error) {
