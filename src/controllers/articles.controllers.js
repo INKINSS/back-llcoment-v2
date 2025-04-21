@@ -1,4 +1,5 @@
 import Article from '../models/article.models.js'
+import { generateSlug } from '../utils/slug.js'
 
 export const getAllArticles = async(req, res) => {
     try {
@@ -9,9 +10,9 @@ export const getAllArticles = async(req, res) => {
     }
 }
 
-export const getArticleById = async(req, res) => {
+export const getArticleBySlug = async(req, res) => {
     try {
-        const article = await Article.findById(req.params.id)
+        const article = await Article.findOne({ slug: req.params.slug })
         res.status(200).json(article)
     } catch (error) {
         res.status(500).json({ message: error.message })
@@ -24,7 +25,8 @@ export const createArticle = async(req, res) => {
         if(!content || !tag || !nickname) {
             return res.status(400).json({ message: 'content, tag and nickname are required' })
         }
-        const article = new Article({ content, nickname, tag })
+        const slug = generateSlug(nickname, tag)
+        const article = new Article({ content, nickname, tag, slug })
         await article.save()
         res.status(201).json(article)
     } catch (error) {
