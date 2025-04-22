@@ -6,6 +6,11 @@ const Article = new Schema({
     required: true,
     trim: true,
   },
+  slug: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   tag: {
     type: String,
     required: true,
